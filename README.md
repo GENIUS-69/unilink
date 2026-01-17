@@ -1,4 +1,4 @@
-```md
+
 # 🚀 UniLink — Smart Campus Networking Platform
 
 UniLink is a **full-stack MERN-based smart campus networking platform** that modernizes how students, faculty, and administrators connect, collaborate, and engage within a university ecosystem.
@@ -308,4 +308,3 @@ Feel free to fork, learn, and build upon it.
 ---
 
 ⭐ If you find this project useful, consider giving it a star and following the journey of **UniLink**!
-```
