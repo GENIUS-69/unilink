@@ -11,7 +11,6 @@ if (!process.env.CLOUDINARY_API_KEY) {
 const PORT = process.env.PORT || 5000;
 
 connectDB().then(() => {
-  
   app.listen(PORT, () => {
     console.log(`UniLink server running on port ${PORT}`);
   })
