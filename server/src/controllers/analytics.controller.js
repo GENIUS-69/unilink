@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import { generateToken } from "../utils/jwt.js";
+import Analytics from "../models/analytics.model.js";
 
 // REGISTER USER
 export const registerUser = async (req, res) => {
@@ -86,6 +87,28 @@ export const loginUser = async (req, res) => {
         email: user.email,
         role: user.role
       }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message
+    });
+  }
+};
+
+export const getAnalyticsOverview = async (req, res) => {
+  try {
+    const analytics = await Analytics.find().sort({ date: 1 });
+
+    const topUsers = await User.find()
+      .sort({ reputation: -1 })
+      .limit(5)
+      .select("name reputation");
+
+    res.status(200).json({
+      success: true,
+      analytics,
+      topUsers
     });
   } catch (error) {
     res.status(500).json({
