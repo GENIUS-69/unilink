@@ -1,6 +1,7 @@
 import Post from "../models/post.model.js";
 import { addReputation } from "../services/reputation.service.js";
 import REPUTATION_POINTS from "../config/reputation.config.js";
+import { sendPushNotification } from "../services/notification.service.js";
 
 // CREATE POST
 export const createPost = async (req, res) => {
@@ -72,12 +73,23 @@ export const likeUnlikePost = async (req, res) => {
 
     const alreadyLiked = post.likes.includes(req.user._id);
 
+    if (!alreadyLiked) {
+      // send notification to post author
+      const author = await User.findById(post.author);
+      await sendPushNotification(
+        author.deviceTokens,
+        "Your post got a new like!",
+        `User ${req.user.name} liked your post.`,
+        { postId: post._id.toString() }
+      );
+    }
+
     if (alreadyLiked) {
       post.likes.pull(req.user._id);
     } else {
       post.likes.push(req.user._id);
 
-      // ✅ Reputation only when liking (not unliking)
+      // Reputation only when liking (not unliking)
       await addReputation(post.author, REPUTATION_POINTS.POST_LIKE);
     }
 

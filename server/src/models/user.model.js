@@ -19,6 +19,10 @@ const userSchema = new mongoose.Schema(
     avatar: {
       public_id: String,
       url: String
+    },
+    deviceTokens: {
+      type: [String], // FCM tokens
+      default: []
     }
   },
   { timestamps: true }

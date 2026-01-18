@@ -11,6 +11,8 @@ import eventRoutes from "./routes/event.routes.js";
 import messageRoutes from "./routes/message.routes.js";
 import leaderboardRoutes from "./routes/leaderboard.routes.js";
 import analyticsRoutes from "./routes/analytics.routes.js";
+import notificationRoutes from "./routes/notification.routes.js";
+
 
 const app = express();
 const server = http.createServer(app);
@@ -27,6 +29,7 @@ app.use("/api/events", eventRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/leaderboard", leaderboardRoutes);
 app.use("/api/analytics", analyticsRoutes);
+app.use("/api/notifications", notificationRoutes)
 
 socketHandler(server);
 
